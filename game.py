@@ -526,6 +526,7 @@ class RandomPellets():
     val_1 = ((150,255,150), 1)
     val_2 = ((150,150,255), 2)
     val_3 = ((255,150,150), 3)
+    val_4 = ((255, 0, 255), 40)
 
     def __init__(self, numPellets):
         """Create RandomPellets object."""
@@ -546,13 +547,16 @@ class RandomPellets():
         """
         val = randint(0, 10)
         if val == 10:
-            self.setSpeed(self.val_3)
+            self.setSpeed(self.val_3[1])
             return self.val_3
         elif val > 7:
-            self.setSpeed(self.val_2)
+            self.setSpeed(self.val_4[1])
+            return self.val_4
+        elif val > 3:
+            self.setSpeed(self.val_2[1])
             return self.val_2
         else:
-            self.setSpeed(self.val_1)
+            self.setSpeed(self.val_1[1])
             return self.val_1
 
     def genPellets(self):
@@ -854,8 +858,8 @@ class Game():
         A tuple[int, int] containing the position
         """
         while True:
-            x_pos = randint(0, COLS - 1) * CELL
-            y_pos = randint(0, ROWS - 1) * CELL
+            x_pos = randint(0, int(COLS - 1)) * CELL
+            y_pos = randint(0, int(ROWS - 1)) * CELL
             position = (x_pos, y_pos)
             for player in self.players:
                 if player.snake.collides_position(position):
